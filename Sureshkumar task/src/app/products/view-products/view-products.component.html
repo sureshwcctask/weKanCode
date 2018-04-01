@@ -1,0 +1,46 @@
+<div class="col-sm-12">
+    <div class="col-sm-3">
+        <app-filter-products (filteredProducts)="getFilteredProducts($event)"></app-filter-products>
+    </div>
+    <div class="col-sm-9">
+        <div class="vr">&nbsp;</div>
+        <div *ngIf="availableProducts && availableProducts.length>0">
+            <div class="col-sm-4 product" *ngFor="let product of availableProducts">
+                <div class="col-sm-6 individual-product" (click)="showProductDetails(product.id)">
+                    <img class="product-images" src="{{product.image}}" />
+                    <h4>{{product.name}}</h4>
+                    <h5>{{editProducts.price}} : {{product.price}}</h5>
+                    <span>{{product.description}}</span>
+                </div>
+                <!-- <div class="col-sm-6">
+                    <h4>{{product.name}}</h4>
+                    <h5>{{editProducts.price}} : {{product.price}}</h5>
+                    <div class="prod-description">
+                        {{product.description}}
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<button id="editModalButton" [hidden]="true" data-toggle="modal" data-target="#showDetailsModal"></button>
+<div class="modal fade" id="showDetailsModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div *ngIf="showProduct" class="col-sm-6">
+                    <img src="{{showProduct.image}}" />
+                </div>
+                <div *ngIf="showProduct" class="col-sm-6">
+                    <h3>{{showProduct.name}}</h3>
+                    <h4>Price : {{showProduct.price}}</h4>
+                    <h4>Category : {{showProduct.categoryName}}</h4>
+                </div>
+                <div *ngIf="showProduct" class="description">
+                    <h6>{{showProduct.description}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

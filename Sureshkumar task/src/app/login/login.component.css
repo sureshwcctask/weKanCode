@@ -1,0 +1,21 @@
+.login-sec{
+    background-image: url("../../assets/images/login_sys1.jpg");  
+    width: 100%;
+    height: 637px;
+}
+.login-sec > div{
+    position: absolute;
+    right: 2%;
+    top: 30%;
+    width: 33%;
+    text-align: center;
+}
+.login-sec > div form{
+    padding: 0 20px 10px;
+}
+.input-group{
+    padding: 5px 0;
+}
+button{
+    margin-top: 10px;
+}

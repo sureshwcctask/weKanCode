@@ -1,0 +1,116 @@
+<div class="col-sm-12">
+    <div class="col-sm-3">
+        <app-filter-products (filteredProducts)="getFilteredProducts($event)"></app-filter-products>
+    </div>
+    <div class="col-sm-9">
+        <div class="vr">&nbsp;</div>
+        <div *ngIf="isProdEditSuccess" class="form-group edit-prod-success">
+            <div class="col-sm-12">
+                <h3>
+                    <span class="glyphicon glyphicon-ok"></span> {{editProducts.editProdSuccess}}</h3>
+            </div>
+        </div>
+        <div *ngIf="availableProducts && availableProducts.length>0">
+            <div class="col-sm-6 product" *ngFor="let product of availableProducts">
+                <div class="col-sm-6">
+                    <img class="product-images" src="{{product.image}}" />
+                </div>
+                <div class="col-sm-6">
+                    <h4>{{product.name}}</h4>
+                    <h5>{{editProducts.price}} : {{product.price}}</h5>
+                    <div class="prod-description">
+                        {{product.description}}
+                    </div>
+                    <div class="edit-prod-buttons">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editProductModal" (click)="editProduct(product.id)">{{editProducts.edit}}</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeProductModal" (click)="removeProductId=product.id">{{editProducts.remove}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editProductModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <div class="panel panel-success product-heading">
+                    <div class="panel-heading">{{editProducts.editProduct}}</div>
+                </div>
+                <form class="form-horizontal" [formGroup]="editProductForm">
+
+                    <div class="form-group">
+                        <label for="product-name" class="col-sm-2 control-label col-md-push-1">{{editProductInfo.name}}
+                            <sup>*</sup>
+                        </label>
+                        <div class="col-sm-8 col-md-push-1">
+                            <input type="text" class="form-control" id="product-name" formControlName="name" placeholder="{{editProductInfo.name}}">
+                            <div class="text-error" *ngIf="editProductForm.controls.name.errors?.required && isFormSubmitted">{{errorMessage.required}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="category" class="col-sm-2 control-label col-md-push-1">{{editProductInfo.category}}
+                            <sup>*</sup>
+                        </label>
+                        <div class="col-sm-8 col-md-push-1">
+                            <select class="form-control" id="category" formControlName="category">
+                                <option value="">{{editProductInfo.selectCategory}}</option>
+                                <option *ngFor="let prodCategory of ediProductCategories" [ngValue]="prodCategory.id">{{prodCategory.name}}</option>
+                            </select>
+                            <div class="text-error" *ngIf="editProductForm.controls.category.errors?.required && isFormSubmitted">{{errorMessage.required}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="col-sm-2 control-label col-md-push-1">{{editProductInfo.price}}
+                            <sup>*</sup>
+                        </label>
+                        <div class="col-sm-8 col-md-push-3 col-md-push-1">
+                            <input type="number" class="form-control" id="price" formControlName="price" placeholder="{{editProductInfo.price}}">
+                            <div class="text-error" *ngIf="editProductForm.controls.price.errors?.required && isFormSubmitted">{{errorMessage.required}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label col-md-push-1">{{editProductInfo.description}}
+                            <sup>*</sup>
+                        </label>
+                        <div class="col-sm-8 col-md-push-1">
+                            <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
+                            <div class="text-error" *ngIf="editProductForm.controls.description.errors?.required && isFormSubmitted">{{errorMessage.required}}</div>
+                            <div class="text-error" *ngIf="editProductForm.controls.description.errors?.minlength && isFormSubmitted">{{errorMessage.prodDiscriptionMin8Max500}}</div>
+                            <div class="text-error" *ngIf="editProductForm.controls.description.errors?.maxlength && isFormSubmitted">{{errorMessage.prodDescriptionMin8Max500}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo" class="col-sm-2 control-label col-md-push-1">{{editProductInfo.image}}
+                            <sup>*</sup>
+                        </label>
+                        <div class="col-sm-8 col-md-push-1">
+                            <input type="file" accept="image/*" class="form-control" id="product-image" (change)="encodeImageFileAsURL($event)" placeholder="{{editProductInfo.image}}">
+                            <div class="text-error" *ngIf="!editProductImage && isFormSubmitted">{{errorMessage.required}}</div>
+                            <img *ngIf="editProductImage" class="product-image" src="{{editProductImage}}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{{editProducts.cancel}}</button>
+                <button type="button" class="btn btn-primary" (click)="updateProduct()">{{editProducts.update}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="removeProductModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{editProducts.removeProduct}}</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{{editProducts.cancel}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="removeProduct()">{{editProducts.remove}}</button>
+            </div>
+        </div>
+    </div>
+</div>

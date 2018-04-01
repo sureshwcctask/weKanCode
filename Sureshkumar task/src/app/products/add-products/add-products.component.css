@@ -1,0 +1,22 @@
+#product-image{
+    border: none;
+    border-radius: none;
+    box-shadow: none;
+    -webkit-box-shadow:none;
+    
+}
+.product-image{
+    width: 282px;
+    height: 150px;
+    border: 1px solid #F1F1F1;
+    margin-top: 5px;
+}
+.add-prod-buttons{
+    text-align: center;
+}
+sup{
+    color: red;
+}
+form .add-prod-success{
+    color:rebeccapurple;
+}
