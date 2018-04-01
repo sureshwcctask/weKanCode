@@ -1,0 +1,82 @@
+/* You can add global styles to this file, and also import other style files */
+.text-error {
+    text-align: left;
+    color: red;
+    padding-bottom: 3px;
+}
+.product-heading {
+    text-align: center;
+}
+.vr {
+    width:1px;
+    background-color:#B4BCC2;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left: 0;
+    overflow: visible;
+    margin-left: 10px;
+}
+.app-router-outlet{
+    padding-top: 6%;
+}
+nav .container-fluid{
+    background-color: #41505B;
+    color: white;
+}
+nav .container-fluid ul li a{
+    color: white !important;
+    font-weight: 700;
+}
+/* nav .navbar-header{
+    width: 100%;
+} */
+nav .container-fluid ul li[class="active"] a{
+    color: red !important;
+    background-color: white;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+    background-color: white !important;
+    color: red !important;    
+}
+@media only screen and (max-width: 766px) {
+    nav .navbar-header{
+        width: 100%;
+    }
+    .navbar-header>img{
+        width: 40%;
+    }
+    .col-sm-9 .vr{
+        display: none;
+    }
+    .app-router-outlet{
+        padding-top: 15%;
+    }
+}
+@media only screen and (min-width: 766px) {
+    nav .navbar-header{
+        width: 20%;
+    }
+    .navbar-header>img{
+        width: 100%;
+    }
+}
+.navbar-header button{
+    background-color: white;
+    border-color: #6C2895;
+}
+.navbar-header button span{
+    background-color: #6C2895;
+}
+.adminName{
+    border-left: 2px solid white;
+}
+nav .container-fluid ul li ul[class="dropdown-menu"] {
+    background-color: white;
+    color: red !important;
+}
+nav .container-fluid ul li a[class="logout"] {
+    background-color: white;
+    color: red !important;
+    cursor: pointer;
+}

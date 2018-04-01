@@ -1,0 +1,29 @@
+<section class="login-sec">
+    <div class="panel panel-primary">
+        <h3>{{appConst.loginHere}}</h3>
+        <div class="panel-body">
+            <form [formGroup]="loginForm" (keyup.enter)="onLogin()">
+                <div class="text-error" *ngIf="!isValidLogin">
+                    {{errorMessage.invalidnameorpassword}}
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </span>
+                    <input type="text" class="form-control" name="userName" formControlName="userName" placeholder="{{appConst.userName}}">
+                </div>
+                <div class="text-error" *ngIf="loginForm.controls.userName.errors?.required && isLoginFormSubmitTried">{{errorMessage.userName}}</div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input type="password" class="form-control" formControlName="password" placeholder="{{appConst.password}}">
+                </div>
+                <div class="text-error" *ngIf="loginForm.controls.password.errors?.required && isLoginFormSubmitTried">{{errorMessage.password}}</div>
+                <div class="text-error" *ngIf="loginForm.controls.password.errors?.minlength && isLoginFormSubmitTried">{{errorMessage.passwordmin8max30}}</div>
+                <div class="text-error" *ngIf="loginForm.controls.password.errors?.maxlength && isLoginFormSubmitTried">{{errorMessage.passwordmin8max30}}</div>
+                <button class="btn btn-primary" (mousedown)="onLogin()">{{appConst.login}}</button>
+            </form>
+        </div>
+    </div>
+</section>

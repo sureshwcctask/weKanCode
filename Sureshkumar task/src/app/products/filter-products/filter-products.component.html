@@ -1,0 +1,29 @@
+<form class="form-horizontal" [formGroup]="filterForm">
+    <div class="panel panel-default product-heading">
+        <div class="panel-heading">{{filterProducts.filterProducts}}</div>
+    </div>
+    <div class="form-group">
+        <label for="productName">{{filterProducts.name}}</label>
+        <input type="text" class="form-control" id="productName" formControlName="name" placeholder="{{filterProducts.name}}">
+    </div>
+    <div class="form-group">
+        <label for="minAmount">{{filterProducts.minPrice}}</label>
+        <input type="number" class="form-control" id="minAmount" formControlName="minPrice" placeholder="{{filterProducts.minPrice}}">
+    </div>
+    <div class="form-group">
+        <label for="maxAmount">{{filterProducts.maxPrice}}</label>
+        <input type="number" class="form-control" id="maxAmount" formControlName="maxPrice" placeholder="{{filterProducts.maxPrice}}">
+        <div class="text-error" *ngIf="filterForm.controls.maxPrice.errors?.invalidMaxPrice && isFormSubmitted">{{errorMessage.invalidMaxPrice}}</div>
+    </div>
+    <div class="form-group">
+        <label for="productName">{{filterProducts.category}}</label>
+        <select class="form-control" id="category" formControlName="category" formControlName="category">
+            <option value="">{{filterProducts.selectCategory}}</option>
+            <option *ngFor="let prodCategory of filterProducts.productCategories" [ngValue]="prodCategory.id">{{prodCategory.name}}</option>
+        </select>
+    </div>
+    <div class="filter-buttons">
+        <button type="button" class="btn btn-sm btn-warning" (click)="onCancelFilters()">{{filterProducts.cancel}}</button>
+        <button type="button" class="btn btn-sm btn-primary" (mousedown)="filterProductList()">{{filterProducts.filter}}</button>
+    </div>
+</form>
